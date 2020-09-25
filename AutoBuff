@@ -1,0 +1,173 @@
+function PitiGearAndBuffs() {
+   var habId = "";
+   var habToken = "";
+ 
+  
+  
+  // Read User Data to determine if Health is low... then buy healing potion
+  var paramsTemplate = {
+     "method" : "get",
+     "headers" : {
+       "x-api-user" : habId, 
+       "x-api-key" : habToken    
+     }
+   } 
+  
+   var response = UrlFetchApp.fetch("https://habitica.com/api/v3/user", paramsTemplate);
+   var user = JSON.parse(response);
+   
+   var paramsTemplate = {
+     "method" : "post",
+     "headers" : {
+       "x-api-user" : habId, 
+       "x-api-key" : habToken    
+     }
+   }
+
+  
+  if (user.data.stats.hp <= 45) {
+    UrlFetchApp.fetch("https://habitica.com/api/v3/user/buy-health-potion", paramsTemplate);
+     }
+  if (user.data.stats.hp <= 30) {
+    UrlFetchApp.fetch("https://habitica.com/api/v3/user/buy-health-potion", paramsTemplate);
+  }  
+  if (user.data.stats.hp <= 15) {
+    UrlFetchApp.fetch("https://habitica.com/api/v3/user/buy-health-potion", paramsTemplate);
+  }
+
+  
+  
+    
+   // TOOLS OF THE TRADE ROUGE
+   var paramsTemplate = {
+     "method" : "get",
+     "headers" : {
+       "x-api-user" : habId, 
+       "x-api-key" : habToken    
+     }
+   }  
+   //var response = UrlFetchApp.fetch("https://habitica.com/api/v3/user", paramsTemplate);
+   //var user = JSON.parse(response);
+   var maxNumberOfBuffs = ((user.data.stats.mp) / 30 ) - 1; //20-Wizzard(Valorous Presence) 25-Rogue(ToolsOfTheTrade)
+   var head = user.data.items.gear.equipped.head; // save initial gear
+   var armor = user.data.items.gear.equipped.armor;
+   var weapon = user.data.items.gear.equipped.weapon;
+   var shield = user.data.items.gear.equipped.shield;
+   var eyewear = user.data.items.gear.equipped.eyewear;
+   var body = user.data.items.gear.equipped.body;
+   
+  
+  if (maxNumberOfBuffs >=1) {
+  paramsTemplate = {
+       "method" : "post",
+       "headers" : {
+         "x-api-user" : habId, 
+         "x-api-key" : habToken       
+       }     
+     }
+   var params = paramsTemplate;
+ /*   
+   if (user.data.items.gear.equipped.eyewear !== "eyewear_armoire_goofyGlasses") {
+      UrlFetchApp.fetch("https://habitica.com/api/v3/user/equip/equipped/eyewear_armoire_goofyGlasses", params);
+      eyewear = "eyewear_armoire_goofyGlasses";
+      Utilities.sleep(200);
+    }  
+  if (user.data.items.gear.equipped.body !== "body_armoire_cozyScarf") {
+      UrlFetchApp.fetch("https://habitica.com/api/v3/user/equip/equipped/body_armoire_cozyScarf", params);
+      body = "body_armoire_cozyScarf";
+      Utilities.sleep(200);
+    }  
+    
+  if (user.data.items.gear.equipped.head !== "head_rogue_5") {
+     UrlFetchApp.fetch("https://habitica.com/api/v3/user/equip/equipped/head_rogue_5", params);
+     head = "head_rogue_5"; 
+     Utilities.sleep(200);
+  }
+  
+   if (user.data.items.gear.equipped.armor !== "armor_rogue_5"){
+     UrlFetchApp.fetch("https://habitica.com/api/v3/user/equip/equipped/armor_rogue_5", params);
+     armor = "armor_rogue_5";
+     Utilities.sleep(200);
+   }
+ 
+ if (user.data.items.gear.equipped.weapon !== "weapon_special_2"){
+     UrlFetchApp.fetch("https://habitica.com/api/v3/user/equip/equipped/weapon_special_2", params);
+     weapon = "weapon_special_2";
+     Utilities.sleep(200);
+   }
+  
+ if (user.data.items.gear.equipped.shield !== "shield_special_goldenknight"){
+     UrlFetchApp.fetch("https://habitica.com/api/v3/user/equip/equipped/shield_special_goldenknight", params);
+     shield = "shield_special_goldenknight";
+     Utilities.sleep(200);
+   }
+ 
+ // cast Valorous Presence 4 times (or less, if you don't have enough mana)   
+ for (var i = 0; i < 2; i++) { 
+    if (maxNumberOfBuffs >= i) {
+    UrlFetchApp.fetch("https://habitica.com/api/v3/user/class/cast/toolsOfTrade", params); 
+    Utilities.sleep(200);
+    }   
+ }
+ 
+ // change battle gear a second time   
+    if (eyewear !== "eyewear_special_aetherMask") {
+      UrlFetchApp.fetch("https://habitica.com/api/v3/user/equip/equipped/eyewear_special_aetherMask", params);
+      Utilities.sleep(200);
+    }  
+    
+    if (body !== "body_special_aetherAmulet") {
+      UrlFetchApp.fetch("https://habitica.com/api/v3/user/equip/equipped/body_special_aetherAmulet", params);
+      Utilities.sleep(200);
+    }
+    
+    
+  if (head !== "head_special_2") {
+     UrlFetchApp.fetch("https://habitica.com/api/v3/user/equip/equipped/head_special_2", params);
+     Utilities.sleep(200);
+  }
+  
+   if (armor !== "armor_special_2"){
+     UrlFetchApp.fetch("https://habitica.com/api/v3/user/equip/equipped/armor_special_2", params);
+     Utilities.sleep(200);
+   }
+ 
+ if (weapon !== "weapon_special_nomadsScimitar"){
+     UrlFetchApp.fetch("https://habitica.com/api/v3/user/equip/equipped/weapon_special_nomadsScimitar", params);
+     Utilities.sleep(200);
+   }
+  
+ if (shield !== "shield_special_wintryMirror"){
+     UrlFetchApp.fetch("https://habitica.com/api/v3/user/equip/equipped/shield_special_diamondStave", params);
+     Utilities.sleep(200);
+   }
+   
+  
+ } // end maxNumberOfBuffs
+ // END TOOLS OF THE TRADE (ROUGE)
+*/
+
+
+  
+  // EARTHQUAKE
+   var url = "https://habitica.com/api/v3/user/class/cast/earth" 
+   var sleepTime = 200
+   
+   //set paramaters
+   var paramsTemplate = {
+     "method" : "post",
+     "headers" : {
+       "x-api-user" : habId, 
+       "x-api-key" : habToken
+     }
+   }
+   var params = paramsTemplate;
+   
+   for (var i = 0; i < 2; i++) { 
+     if (maxNumberOfBuffs >= i) {
+       UrlFetchApp.fetch(url, params)
+       Utilities.sleep(sleepTime);// pause in the loop for 200 milliseconds; //This is to avoid buff being swallowed up from servers too busy.
+     }
+   }
+ }
+}
