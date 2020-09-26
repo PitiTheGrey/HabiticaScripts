@@ -48,7 +48,7 @@ function PitiGearAndBuffs() {
    }  
    //var response = UrlFetchApp.fetch("https://habitica.com/api/v3/user", paramsTemplate);
    //var user = JSON.parse(response);
-   var maxNumberOfBuffs = ((user.data.stats.mp) / 30 ) - 1; //20-Wizzard(Valorous Presence) 25-Rogue(ToolsOfTheTrade)
+   var maxNumberOfBuffs = ((user.data.stats.mp) / 25 ) - 1; //20-Wizzard(Valorous Presence) 25-Rogue(ToolsOfTheTrade)
    var head = user.data.items.gear.equipped.head; // save initial gear
    var armor = user.data.items.gear.equipped.armor;
    var weapon = user.data.items.gear.equipped.weapon;
@@ -66,7 +66,7 @@ function PitiGearAndBuffs() {
        }     
      }
    var params = paramsTemplate;
- /*   
+  
    if (user.data.items.gear.equipped.eyewear !== "eyewear_armoire_goofyGlasses") {
       UrlFetchApp.fetch("https://habitica.com/api/v3/user/equip/equipped/eyewear_armoire_goofyGlasses", params);
       eyewear = "eyewear_armoire_goofyGlasses";
@@ -116,7 +116,7 @@ function PitiGearAndBuffs() {
       Utilities.sleep(200);
     }  
     
-    if (body !== "body_special_aetherAmulet") {
+    if (body !== "body_armoire_lifeguardWhistle") {
       UrlFetchApp.fetch("https://habitica.com/api/v3/user/equip/equipped/body_special_aetherAmulet", params);
       Utilities.sleep(200);
     }
@@ -145,10 +145,10 @@ function PitiGearAndBuffs() {
   
  } // end maxNumberOfBuffs
  // END TOOLS OF THE TRADE (ROUGE)
-*/
 
 
-  
+
+  /*
   // EARTHQUAKE
    var url = "https://habitica.com/api/v3/user/class/cast/earth" 
    var sleepTime = 200
@@ -169,5 +169,6 @@ function PitiGearAndBuffs() {
        Utilities.sleep(sleepTime);// pause in the loop for 200 milliseconds; //This is to avoid buff being swallowed up from servers too busy.
      }
    }
+   */
  }
 }
