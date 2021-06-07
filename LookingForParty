@@ -1,0 +1,49 @@
+function lookingForParty() {
+ 
+   var habId = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";
+   var habToken = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";
+  
+  var message = "## Addicted to Habitica is looking for one or two new members   \n"+
+                "+ We aim to be a small group of eight members.    \n   \n"+
+                 "+ we are long time members  \n"+
+                 "+ we are active every day   \n"+
+                 "+ we roughly do 1 quest per day    \n"+
+                 "+ we each have lots of tasks and have a damage minimum of 23 points against bosses per day   \n"+
+                 "+ we do not talk a lot in chat (in fact chat is really quiet)   \n" +
+                 "+ we count on each others support (lots of tasks and frequent buffs), which helps us to stay motivated for doing our tasks.   \n"+
+                 "+ we have collected lots of pets and mounts and gear already   \n"+
+                 "## What we would like from you:    \n"+
+                 "+ You are willing to buff a few times per day   \n"+
+                 "+ You are a subscriber,   \n"+
+                 "+ You have a background picture for you avatar,   \n"+
+                 "+ You will check in daily,    \n"+
+                 "+ You auto-accept quests    \n"+
+                 "+ You already have a stable of around some 100 pets and mounts.   \n"+
+                 "+ At the best you can enrich our team by living in a country/continent, that is not represented yet in our party. We are from USA, Germany, Brazil (I hope I did not forget any ;).   \n"+
+                 "   \n On interest please pm me.   \n"+
+                 "   \n CU, @Piti!"
+
+   
+  var data = {"message" : message };
+  
+  
+   //set paramaters
+   var paramsTemplate = {
+     "contentType": "application/json",
+     "payload" : JSON.stringify(data),
+     "method" : "post", 
+//     "method" : "get", 
+     "headers" : {
+       "x-api-user" : habId, 
+       "x-api-key" : habToken
+     }
+     
+   }
+   var params = paramsTemplate;
+// var response = UrlFetchApp.fetch("https://habitica.com/api/v3/groups/f2db2a7f-13c5-454d-b3ee-ea1f5089e601/chat", params)
+// var chat = JSON.parse(response);
+// Logger.log(response); 
+ 
+  UrlFetchApp.fetch("https://habitica.com/api/v3/groups/f2db2a7f-13c5-454d-b3ee-ea1f5089e601/chat", params)
+
+}
